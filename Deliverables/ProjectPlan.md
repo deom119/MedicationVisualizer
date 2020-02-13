@@ -12,6 +12,8 @@ We are designing and implementing Medication Visualizer, which aims to provide p
 
 ## 2 Process Description
 
+The project is to design and implement a Medication Visualizer, which aims to provide physicians with a visual representation of all available medications to make it easier to sort through the appropriate products with more meaningful groupings.
+
 *Functionality Description*
 
 * The project should incorporate the visualization following functionalities-
@@ -20,8 +22,6 @@ We are designing and implementing Medication Visualizer, which aims to provide p
 * Displaying the various medication strength
 * Charts of upcoming medication expiration with warning
 * Grouping of medication based on similar ingredients and manufacturers.
-
-The project is to design and implement a Medication Visualizer, which aims to provide physicians with a visual representation of all available medications to make it easier to sort through the appropriate products with more meaningful groupings.
 
 *Process description as a set of activities; for each activity, provide the following:*
 
