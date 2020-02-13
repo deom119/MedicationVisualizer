@@ -31,8 +31,8 @@ The project is to design and implement a Medication Visualizer, which aims to pr
 *Displaying medication ingredients and dose*
 
 - *Activity description (concise paragraph)*
-* A web platform to host medication lists. it’s status, ingredient, and manufacturing data*
-* A  navigable dashboard for a pharmacist to review and monitor various medication status*
+	* A web platform to host medication lists. it’s status, ingredient, and manufacturing data*
+	* A  navigable dashboard for a pharmacist to review and monitor various medication status*
 
 - *Entrance criteria (inputs needed for the activity)*
    Input criteria will include- 
