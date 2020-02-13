@@ -16,6 +16,7 @@ We are designing and implementing Medication Visualizer, which aims to provide p
 
 ## 3 Process Description
 
+The project is to design and implement a Medication Visualizer, which aims to provide physicians with a visual representation of all available medications to make it easier to sort through the appropriate products with more meaningful groupings.
 
 ## 4 Team
 
