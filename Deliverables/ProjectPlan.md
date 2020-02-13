@@ -25,10 +25,10 @@ The project is to design and implement a Medication Visualizer, which aims to pr
 
 - *Activity name (verb or verb phrase)*
 
-*Dashboarding medication listing*
-*Displaying expiring status*
-*Displaying manufacturer details*
-*Displaying medication ingredients and dose*
+	*Dashboarding medication listing
+	*Displaying expiring status
+	*Displaying manufacturer details
+	*Displaying medication ingredients and dose
 
 - *Activity description (concise paragraph)*
 	* A web platform to host medication lists. it’s status, ingredient, and manufacturing data*
