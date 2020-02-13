@@ -23,20 +23,33 @@ The project is to design and implement a Medication Visualizer, which aims to pr
 * Charts of upcoming medication expiration with warning
 * Grouping of medication based on similar ingredients and manufacturers.
 
-*Process description as a set of activities; for each activity, provide the following:*
-
 - *Activity name (verb or verb phrase)*
+
+*Dashboarding medication listing*
+*Displaying expiring status*
+*Displaying manufacturer details*
+*Displaying medication ingredients and dose*
+
 - *Activity description (concise paragraph)*
+* A web platform to host medication lists. it’s status, ingredient, and manufacturing data*
+* A  navigable dashboard for a pharmacist to review and monitor various medication status*
+
 - *Entrance criteria (inputs needed for the activity)*
+   Input criteria will include- 
+	User selection- for various visual representation of medication status
+	Medication name- for searching a particular medication
+Manufacturer name - for searching a specific manufacturer details. 
+
 - *Exit criteria (outputs produced by the activity and how you know it has been completed satisfactorily)*
+	The exit criteria would either be the visual representation of the data user needed based on user on screen selection or a tabular representation of a specific dataset(s). 
+Nothing will be displayed if not data is present on selected criteria and user will be notified appropriately   
+
 
 ## 3 Team
 
 - **Team Members:** Uday Bag, Patrick Xie Chen, Marco Tupaz Colasito, Dasom Eom, Rory Mcgurty
 
-- **Back End Dev:** 
-
-- **Front End Dev:** 
+- **Dev:** Full-stack development from front-end to back-end.
 
 - **QA:** check the quality of the application and prevent any defects and mistakes in it.
 
