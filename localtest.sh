@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # get templates needed for local deployment
-git clone https://github.gatech.edu/es130/HDAP_helm_deploy_templates.git
+git clone --single-branch --branch cs6440 https://github.gatech.edu/es130/HDAP_helm_deploy_templates.git
 
 # get the namespace set by the developer
 userns=`awk '/namespace:/{print $2}' values.yaml`
