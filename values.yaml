@@ -15,7 +15,7 @@ frontend:
     incomingPath: /medviz-2-frontend/
     containerPath: "/" # The empty string "" means use same as incomingPath, otherwise the value in the string will replace the value of incomingPath when traffic is sent to the application in the deployed container
   image:
-    repository: gt-build.hdap.gatech.edu/medviz-2
+    repository: gt-build.hdap.gatech.edu/medviz-2-frontend
     tag: latest
     pullPolicy: Always
   #Volumes used by the application are placed here
