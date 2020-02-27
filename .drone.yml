@@ -25,7 +25,7 @@ steps:
 - name: deploy_application_image
   image: plugins/docker
   settings:
-   repo: gt-build.hdap.gatech.edu/medviz-2-frontend
+   repo: gt-build.hdap.gatech.edu/medviz2-frontend
    context: .
    dockerfile: ./Dockerfile
    tags:
@@ -38,7 +38,7 @@ steps:
     - git clone -b cs6440 https://github.gatech.edu/es130/HDAP_helm_deploy_templates.git
 
   # Set the namespace to use for deployment
-- name: medviz-2    ######### UPDATE THIS ##############
+- name: ns-medviz2
   image: busybox:1.31
   commands:
     - userns=`awk '/namespace:/{print $2}' ./values.yaml`
