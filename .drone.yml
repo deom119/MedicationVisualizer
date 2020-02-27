@@ -23,8 +23,8 @@ steps:
 #
 # Here is an example more generic step to deploy to the HDAP Docker registry
 - name: deploy_application_image
- image: plugins/docker
- settings:
+  image: plugins/docker
+  settings:
    repo: gt-build.hdap.gatech.edu/medviz-2-frontend
    context: .
    dockerfile: ./Dockerfile
