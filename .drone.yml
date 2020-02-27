@@ -22,14 +22,14 @@ steps:
 #      - latest
 #
 # Here is an example more generic step to deploy to the HDAP Docker registry
-#- name: deploy_application_image
-#  image: plugins/docker
-#  settings:
-#    repo: build.hdap.gatech.edu/myapp
-#    context: directory_of_myapp_code
-#    dockerfile: directory_of_myapp_code/Dockerfile
-#    tags:
-#      - latest
+- name: deploy_application_image
+ image: plugins/docker
+ settings:
+   repo: gt-build.hdap.gatech.edu/medviz-2-frontend
+   context: .
+   dockerfile: ./Dockerfile
+   tags:
+     - latest
 
 # Pull down the templates for deployment to HDAP K8S
 - name: get_chart_builder
@@ -38,7 +38,7 @@ steps:
     - git clone -b cs6440 https://github.gatech.edu/es130/HDAP_helm_deploy_templates.git
 
   # Set the namespace to use for deployment
-- name: copy_namespace
+- name: medviz-2    ######### UPDATE THIS ##############
   image: busybox:1.31
   commands:
     - userns=`awk '/namespace:/{print $2}' ./values.yaml`
