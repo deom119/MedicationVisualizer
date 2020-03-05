@@ -31,5 +31,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://apps.hdap.gatech.edu/medviz2-frontend/"
+  "homepage": "https://apps.hdap.gatech.edu/medviz2-frontend/",
+  "main": "index.js"
 }
