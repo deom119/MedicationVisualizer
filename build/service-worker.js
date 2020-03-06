@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/medviz2-frontend/precache-manifest.d316d822fca33261ea369e6158efaea1.js"
+  "/medviz2-frontend/precache-manifest.729541e4f4683545c05f19f84ddee7a9.js"
 );
 
 self.addEventListener('message', (event) => {
