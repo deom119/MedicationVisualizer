@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/medviz2-frontend/static/css/main.d1b05096.chunk.css",
+    "main.js": "/medviz2-frontend/static/js/main.51c35475.chunk.js",
+    "main.js.map": "/medviz2-frontend/static/js/main.51c35475.chunk.js.map",
+    "runtime-main.js": "/medviz2-frontend/static/js/runtime-main.492f7e83.js",
+    "runtime-main.js.map": "/medviz2-frontend/static/js/runtime-main.492f7e83.js.map",
+    "static/js/2.2cfc58b7.chunk.js": "/medviz2-frontend/static/js/2.2cfc58b7.chunk.js",
+    "static/js/2.2cfc58b7.chunk.js.map": "/medviz2-frontend/static/js/2.2cfc58b7.chunk.js.map",
+    "index.html": "/medviz2-frontend/index.html",
+    "precache-manifest.4f3d0becc282881014944fbb7b300687.js": "/medviz2-frontend/precache-manifest.4f3d0becc282881014944fbb7b300687.js",
+    "service-worker.js": "/medviz2-frontend/service-worker.js",
+    "static/css/main.d1b05096.chunk.css.map": "/medviz2-frontend/static/css/main.d1b05096.chunk.css.map",
+    "static/js/2.2cfc58b7.chunk.js.LICENSE.txt": "/medviz2-frontend/static/js/2.2cfc58b7.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/medviz2-frontend/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.492f7e83.js",
+    "static/js/2.2cfc58b7.chunk.js",
+    "static/css/main.d1b05096.chunk.css",
+    "static/js/main.51c35475.chunk.js"
+  ]
+}
