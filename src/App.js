@@ -1,16 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import Searchbar from './components/Searchbar';
+import RxList from './components/RxList';
 
-function App() {
+const App =()=> {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello world!
-        </p>
-      </header>
+      <Navbar/>
+      <Searchbar/>  
+      <RxList/>
     </div>
   );
 }

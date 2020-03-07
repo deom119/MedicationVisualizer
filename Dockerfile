@@ -1,16 +1,21 @@
-FROM node:latest
+# Stage 1 - the build process
+FROM node:latest as builder
 
-# Create app directory
 WORKDIR /usr/src/app
 
-# Install dependencies
-COPY package*.json ./
+COPY package.json yarn.lock ./
 
-RUN npm install
+RUN yarn
 
-# Bundle app source
-COPY . .
+COPY . ./
 
-EXPOSE 3000
+RUN yarn build
 
-CMD [ "npm", "start"]
+# Stage 2 - the production environment
+FROM nginx:1.12-alpine
+
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
