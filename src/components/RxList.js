@@ -24,7 +24,7 @@ const RxList = () => {
 
     useEffect(()=>{
         setIsLoading(true);
-        fetch(`https://hapi.fhir.org/baseR4/Medication`)
+        fetch(`http://hapi.fhir.org/baseR4/Medication`)
             .then(response =>{
                 if(response.ok){
                     return response.json();
