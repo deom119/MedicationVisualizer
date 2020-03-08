@@ -1,4 +1,5 @@
 # Stage 1 - the build process
+##
 FROM node:latest as builder
 
 WORKDIR /usr/src/app
