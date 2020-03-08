@@ -68,6 +68,6 @@ volumes:
   temp: {}
 trigger:
   branch:
-  - dasom
+  - cs6440
   event:
   - push
