@@ -68,6 +68,6 @@ volumes:
   temp: {}
 trigger:
   branch:
-  - cs6440
+  - master
   event:
   - push
