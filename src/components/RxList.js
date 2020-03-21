@@ -1,30 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const RxList = () => {
 
     const [rxLists,setRxLists] = useState([])
-    //const [resource,setResource] = useState({})
-    const [isLoading,setIsLoading] =useState(false)
+    //const [resource,setResource] = useState({})    
+    //const [rx,setRx] = useState({})
+    //const [code,setCode] = useState("")
+    //const [system,setSystem] = useState("")
+    //const [name,setName] = useState("")
+    //const [isRxLoading,setIsRxLoading] =useState(false)
+
+    const [isLoaded,setIsLoaded] =useState(false)
     const [error,setError]=useState(null)
-    
-    const [rx,setRx] = useState({})
-    const [code,setCode] = useState("")
-    const [system,setSystem] = useState("")
-    const [name,setName] = useState("")
+    const [searchWord, setsearchWord] = useState("")
+    const [count, setCount] = useState(0);
 
-    const [isRxLoading,setIsRxLoading] =useState(false)
-    //const [rxerror,setRxError]=useState(null)
+    const handleSearch = (e)=>{
+        setsearchWord(e.target.value)
+    }
 
-    //const displayDrug = null
-
-    //const [msg,setMsg] =useState("Nothing to Display")
-
-    //const [url,setURL] = useState(`http://hapi.fhir.org/baseR4/Medication`)
-    //const BASE_URL =`http://hapi.fhir.org/baseR4/Medication`
-
-    useEffect(()=>{
-        setIsLoading(true);
-        fetch(`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication`)
+    const displayRx = ()=>{        
+        const url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?code:text=`+searchWord+`&_pretty=true`;
+        //const url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?code:text=tylenol&_pretty=true`\
+        console.log(url);
+        //console.log(searchWord)
+        if(searchWord){
+            //console.log(`setsearchWord`,setsearchWord)
+            fetch(url)
             .then(response =>{
                 if(response.ok){
                     return response.json();
@@ -32,56 +34,29 @@ const RxList = () => {
                     throw Error ("Error while fetching data")
                 }
             })
-            .then(rxlists =>{
-                setRxLists(rxlists.entry)
-                //console.log(rxlists.entry)
-                setIsLoading(false);
+            .then(rx=>{
+                const count = rx.total
+                if (count> 0){                
+                    setCount(count)      
+                    setRxLists(rx.entry);
+                    setIsLoaded(true);
+                }else{
+                    console.log(`no records returned`);
+                    setIsLoaded(true)
+                }            
+                return rx.entry;
+            })
+            .then(rxentry=>{
+                console.log(`inside rxentry`, rxentry);
+                console.log(`rxListState`,rxLists)
             })
             .catch(error=>{
                 setError(error);
             })
-    },[])
-
-
-    const display = (url) =>{
+        }else{
+            console.log(`enter medication`);
+        }
         
-        //console.log(url);
-              
-        fetch(url)
-        .then(response =>{
-            if(response.ok){
-                return response.json();
-            }else{
-                throw Error ("Error while fetching data")
-            }
-        })
-        .then(rx=>{
-            setRx(rx);
-            const code = rx.code;
-            const coding = code.coding;
-
-/*           
-            console.log(rx);
-            console.log("==== code =====");
-            console.log(code);
-    
-            console.log("==== coding =====");
-            console.log(coding);
-*/           
-
-
-            coding.map(code=>{
-                //console.log("Code->", code.system, code.code, code.display)
-                setCode(code.code);
-                setSystem(code.system);
-                setName(code.display);                
-            })
-            setIsRxLoading(true);
-
-        })
-        .catch(error=>{
-            setError(error);
-        })
 
     }
 
@@ -89,31 +64,44 @@ const RxList = () => {
         return <p style={{color:'Red'}}> Error while loading data</p>
     }
 
-    if(isLoading){
-        return <p>Rx Loading...</p>
-    }
+    // if(isLoaded){
+    //     return <p>Rx Loading...</p>
+    // }
 
     return (
         <React.Fragment>
 
-            {
-                isRxLoading === true? 
-                    <div className="rx-show">
-                        <div className="name">{name}</div>
-                        <div>Source:{system}</div>
-                        <div>Rx Id:{code}</div>
-                    </div> : 
-                    <div className="rx-nodisplay">Click each item to display</div>
-            }
-
-            <h2>Rx List</h2>
-            <div className="rx-list-container">
-                {rxLists.map(rx=>(                
-                    <div className="rx-list" key={rx.fullUrl} onClick={()=>display(rx.fullUrl)}>
-                        <div>{rx.resource.resourceType} id: {rx.resource.id}</div>               
-                    </div>
-                ))} 
+            <div className="search-bar">
+                <div>
+                    <input type="search" placeholder="Search" aria-label="Search" onChange={handleSearch}></input>
+                </div>
+                <div>
+                    <input type="submit" value="Search" onClick={displayRx}></input>
+                </div>
             </div>
+
+            { !isLoaded?(<p>No records to display</p>):(  
+                <React.Fragment>
+
+                    {
+                        count===0?
+                            (<div>no records returned</div>):
+                            (                                
+                                <div>                                    
+                                    <div>Total record count:{count}</div> 
+        
+                                    {
+                                        rxLists.map(rxlist=> ( 
+                                            <div key={rxlist.fullUrl}>                               
+                                                <div>batch No:{rxlist.resource.batch.lotNumber} Expiry Date: {rxlist.resource.batch.expirationDate}</div>
+                                            </div>
+                                        )) 
+                                    }   
+                                </div>                                                                                             
+                            )
+                    }
+                </React.Fragment>
+            )}
 
         </React.Fragment>
     );
