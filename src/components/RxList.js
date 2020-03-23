@@ -28,7 +28,6 @@ const RxList = () => {
 
 
     const displayRx = ()=>{
-        console.log(select);
         var url;
             if (select === '0') {
             url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?code:text=`+searchWord+`&_pretty=true`;
@@ -147,7 +146,7 @@ const RxList = () => {
                             (<div>no records returned</div>):
                             (                                
                                 <div>
-                                    <div>Total record count:{count}</div>
+                                    <div className = "total-record">Total record count:{count}</div>
 
 
                                     <table className ="table table-hover-md table-striped">
