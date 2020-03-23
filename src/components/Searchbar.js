@@ -8,6 +8,6 @@ const Searchbar =(props) =>{
             </div>
         </div>
     );
-}
+};
 
 export default Searchbar;

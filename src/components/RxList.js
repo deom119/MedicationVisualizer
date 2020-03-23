@@ -32,7 +32,7 @@ const RxList = () => {
             if (select === '0') {
             url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?code:text=`+searchWord+`&_pretty=true`;
         } else if (select === '1') {
-            url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?code=`+searchWord+`&_pretty=true`;
+            url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?code:coding:code=`+searchWord+`&_pretty=true`;
         } else {
             url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?lot-number=`+searchWord+`&_pretty=true`;
         }
@@ -43,7 +43,7 @@ const RxList = () => {
             fetch(url)
             .then(response =>{
                 if(response.ok){
-                    console.log("response ok")
+                    console.log("response ok");
                     return response.json();
                 }else{
                     throw Error ("Error while fetching data")
@@ -52,7 +52,8 @@ const RxList = () => {
             .then(rx=>{
 
                 //console.log("check 1 " + rx.entry.length);
-                const count = rx.total
+                const count = rx.total;
+                console.log(count + " total count");
                 for (var i = 0; i < rx.entry.length; i++) {
                     //console.log(i + " turn");
                     rx.entry[i].resource.ingredients = '';
