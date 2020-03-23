@@ -37,20 +37,21 @@ code {
   margin-left: 20px;
 }
 
-.search-bar{
-  padding: 50px;
-  text-align: center;
-  display: grid;
+.input-group{
+  padding: 80px 80px 40px 80px;
+  margin-left:auto;
+  margin-right:auto;
+  align: center;
 }
 
-.search-bar input{
-  width: 100%;
-  padding: 12px;
-  border: 1px solid#F1E2F9;
-  border-radius: 8px;
+.total-record{
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
 
 
 }
+
 .rx-list-container{
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -91,3 +92,10 @@ code {
   margin-left: 50px;
 }
 
+.table {
+  table-layout: fixed;
+  margin-left:auto;
+  margin-right:auto;
+  align: center;
+  width: 98% !important;
+}
