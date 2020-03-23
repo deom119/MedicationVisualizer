@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const RxList = () => {
 
@@ -36,19 +37,45 @@ const RxList = () => {
             })
             .then(rx=>{
                 const count = rx.total
+                for (var i = 0; i < rx.entry.length; i++) {
+                    rx.entry[i].resource.ingredients = '';
+                    if (rx.entry[i].resource.batch === undefined) {
+                        rx.entry[i].resource.batch.expirationDate = "-";
+                        rx.entry[i].resource.batch.lotNumber = "-";
+                    }
+                    if (rx.entry[i].resource.code.coding[0] === undefined) {
+                        rx.entry[i].resource.code.coding[0].code = "-";
+                        rx.entry[i].resource.code.coding[0].display = "-";
+                    }
+                    if (rx.entry[i].resource.form.coding[0] === undefined) {
+                        rx.entry[i].resource.form.coding[0].display = "-";
+                    }
+                    if (rx.entry[i].resource.ingredient === undefined) {
+                        rx.entry[i].resource.ingredient[0].itemCodeableConcept.coding[0].code = "-";
+                        rx.entry[i].resource.ingredient[0].itemCodeableConcept.coding[0].display = "-";
+                    }
+
+                    for (var j = 0; j < rx.entry[i].resource.ingredient.length; j++) {
+                        rx.entry[i].resource.ingredients += rx.entry[i].resource.ingredient[j].itemCodeableConcept.coding[0].display + " ";
+                    }
+
+
+                }
                 if (count> 0){                
-                    setCount(count)      
+                    setCount(count);
                     setRxLists(rx.entry);
                     setIsLoaded(true);
                 }else{
                     console.log(`no records returned`);
                     setIsLoaded(true)
-                }            
+                }
                 return rx.entry;
             })
             .then(rxentry=>{
                 console.log(`inside rxentry`, rxentry);
                 console.log(`rxListState`,rxLists)
+
+
             })
             .catch(error=>{
                 setError(error);
@@ -73,7 +100,7 @@ const RxList = () => {
 
             <div className="search-bar">
                 <div>
-                    <input type="search" placeholder="Search" aria-label="Search" onChange={handleSearch}></input>
+                    <input type="search" placeholder="Search Medication" aria-label="Search" onChange={handleSearch}></input>
                 </div>
                 <div>
                     <input type="submit" value="Search" onClick={displayRx}></input>
@@ -87,17 +114,39 @@ const RxList = () => {
                         count===0?
                             (<div>no records returned</div>):
                             (                                
-                                <div>                                    
-                                    <div>Total record count:{count}</div> 
-        
-                                    {
-                                        rxLists.map(rxlist=> ( 
-                                            <div key={rxlist.fullUrl}>                               
-                                                <div>batch No:{rxlist.resource.batch.lotNumber} Expiry Date: {rxlist.resource.batch.expirationDate}</div>
-                                            </div>
-                                        )) 
-                                    }   
-                                </div>                                                                                             
+                                <div>
+                                    <div>Total record count:{count}</div>
+
+
+                                    <table className ="table table-hover-md table-striped">
+                                        <thead>
+                                            <tr className = "table-primary">
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Code</th>
+                                                <th scope="col">Form</th>
+                                                <th scope="col">Ingredient</th>
+                                                <th scope="col">Batch No</th>
+                                                <th scope="col">Expiration Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {rxLists.map(rxlist=> (
+                                                    <tr key = {rxlist.fullUrl}>
+                                                        <td>{rxlist.resource.id}</td>
+                                                        <td>{rxlist.resource.code.coding[0].display}</td>
+                                                        <td>{rxlist.resource.code.coding[0].code}</td>
+                                                        <td>{rxlist.resource.form.coding[0].display}</td>
+                                                        <td>{rxlist.resource.ingredients}</td>
+                                                        <td>{rxlist.resource.batch.lotNumber}</td>
+                                                        <td>{rxlist.resource.batch.expirationDate}</td>
+                                                    </tr>
+                                            ))
+                                        }
+                                        </tbody>
+                                    </table>
+
+                                </div>
                             )
                     }
                 </React.Fragment>
