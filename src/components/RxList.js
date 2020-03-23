@@ -30,9 +30,9 @@ const RxList = () => {
     const displayRx = ()=>{
         console.log(select);
         var url;
-            if (select == '0') {
+            if (select === '0') {
             url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?code:text=`+searchWord+`&_pretty=true`;
-        } else if (select == '1') {
+        } else if (select === '1') {
             url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?code=`+searchWord+`&_pretty=true`;
         } else {
             url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?lot-number=`+searchWord+`&_pretty=true`;
