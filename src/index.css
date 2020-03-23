@@ -37,24 +37,14 @@ code {
   margin-left: 20px;
 }
 
-.search-bar{
-  padding: 50px;
-  display: grid;
-  grid-template-columns: 80% 20%;
-  grid-column-gap: 20px;
-  text-align: center;
-  /*border: 1px solid#000;*/
-  margin: 10px 50px;
+.input-group{
+  padding: 80px;
+  margin-left:auto;
+  margin-right:auto;
+  align: center;
 }
 
-.search-bar input{
-  width: 100%;
-  padding: 12px;
-  border: 1px solid#F1E2F9;
-  border-radius: 8px;
 
-
-}
 .rx-list-container{
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -100,5 +90,5 @@ code {
   margin-left:auto;
   margin-right:auto;
   align: center;
-  width: 95% !important;
+  width: 98% !important;
 }
