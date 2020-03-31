@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import FHIR from 'fhirclient'
 // import './App.css';
 
+// Establish client and set number of pages (default is 10 resources/page)
 const client = FHIR.client("http://apps.hdap.gatech.edu/syntheticmass/baseDstu3")
 const NUMPAGES = 50
 
@@ -16,10 +17,13 @@ class InitializeMeds extends Component {
         this.getMeds = this.getMeds.bind(this);
     }
     
+    // Calls FHIR api to get medication resources
     getMeds() {
-        console.log('click registered')
+        // console.log('click registered')
         this.setState({ loading: true })
         client.request("Medication", { pageLimit: NUMPAGES, flat: true })
+        
+        // Log resources and get number of resources
         .then((response) => {
             console.log(response)
             return response.length
@@ -35,7 +39,6 @@ class InitializeMeds extends Component {
 
     render () {
         const { medications, loading } = this.state
-        // console.log(typeof medications)
 
         return (
             <div>
@@ -45,7 +48,6 @@ class InitializeMeds extends Component {
                         <span className="sr-only"> Loading...</span>
                     </div>
                 ) : (
-                    // <p>Number of medications: {numMeds} </p>
                     <p> Number of medications: {medications} </p>
                 )}
             </div>
