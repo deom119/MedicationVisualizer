@@ -5,6 +5,7 @@ import FHIR from 'fhirclient'
 // import './App.css';
 
 const client = FHIR.client("http://apps.hdap.gatech.edu/syntheticmass/baseDstu3")
+const NUMPAGES = 50
 
 class InitializeMeds extends Component {
     constructor(props) {
@@ -18,14 +19,13 @@ class InitializeMeds extends Component {
     getMeds() {
         console.log('click registered')
         this.setState({ loading: true })
-        client.request("Medication", { pageLimit: 2, flat: true })
-        .then((response) => (
-            // console.log(response)
-            JSON.stringify(response, null, 4)
-        ))
-        .then((medications) => (
-            // console.log(medications)
-            this.setState({ medications: medications, loading: false })
+        client.request("Medication", { pageLimit: NUMPAGES, flat: true })
+        .then((response) => {
+            console.log(response)
+            return response.length
+        })
+        .then((numMeds) => (
+            this.setState({ medications: numMeds, loading: false })
         ))
         .catch((err) => {
             console.log(err);
@@ -35,7 +35,7 @@ class InitializeMeds extends Component {
 
     render () {
         const { medications, loading } = this.state
-        console.log(medications)
+        // console.log(typeof medications)
 
         return (
             <div>
@@ -45,7 +45,8 @@ class InitializeMeds extends Component {
                         <span className="sr-only"> Loading...</span>
                     </div>
                 ) : (
-                    <p> {medications} </p>
+                    // <p>Number of medications: {numMeds} </p>
+                    <p> Number of medications: {medications} </p>
                 )}
             </div>
         )
