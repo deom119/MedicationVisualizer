@@ -6,7 +6,7 @@ import FHIR from 'fhirclient'
 
 // Establish client and set number of pages (default is 10 resources/page)
 const client = FHIR.client("http://apps.hdap.gatech.edu/syntheticmass/baseDstu3")
-const NUMPAGES = 50
+const NUMPAGES = 10
 
 class InitializeMeds extends Component {
     constructor(props) {
