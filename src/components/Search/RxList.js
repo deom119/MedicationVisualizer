@@ -26,7 +26,6 @@ const RxList = () => {
         setsearchWord(e.target.value)
     };
 
-
     const displayRx = ()=>{
         var url;
             if (select === '0') {
@@ -36,14 +35,14 @@ const RxList = () => {
         } else {
             url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?lot-number=`+searchWord+`&_pretty=true`;
         }
-        console.log(url);
+        //console.log(url);
         //console.log(searchWord)
         if(searchWord){
             //console.log(`setsearchWord`,setsearchWord)
             fetch(url)
             .then(response =>{
                 if(response.ok){
-                    console.log("response ok");
+                    //console.log("response ok");
                     return response.json();
                 }else{
                     throw Error ("Error while fetching data")
@@ -53,7 +52,7 @@ const RxList = () => {
 
                 //console.log("check 1 " + rx.entry.length);
                 const count = rx.total;
-                console.log(count + " total count");
+                //console.log(count + " total count");
                 for (var i = 0; i < rx.entry.length; i++) {
                     //console.log(i + " turn");
                     rx.entry[i].resource.ingredients = '';
@@ -96,20 +95,12 @@ const RxList = () => {
                 }
                 return rx.entry;
             })
-            .then(rxentry=>{
-                console.log(`inside rxentry`, rxentry);
-                console.log(`rxListState`,rxLists)
-
-
-            })
             .catch(error=>{
                 setError(error);
             })
         }else{
             console.log(`enter medication`);
-        }
-        
-
+        }        
     }
 
     if(error){
@@ -122,8 +113,7 @@ const RxList = () => {
 
     return (
         <React.Fragment>
-
-            <div className="input-group input-group-lg mb-lg-3" role="toolbar" aria-label="Toolbar with button groups">
+            <div className="input-group input-group-lg search-custom-style" role="toolbar" aria-label="Toolbar with button groups">
                 <select onChange={updateDropdown} className="custom-select input-group-prepend col-md-2" id="dropdown">
                     <option value='0' defaultValue="selected">Name</option>
                     <option value='1'>Code</option>
@@ -137,16 +127,14 @@ const RxList = () => {
                     </input>
                 </div>
             </div>
-
-
-            { !isLoaded?(<p>No records to display</p>):(  
+            { !isLoaded?(<p >No records to display</p>):(  
                 <React.Fragment>
 
                     {
                         count===0?
                             (<div>no records returned</div>):
                             (                                
-                                <div>
+                                <div className='displayRecord'>
                                     <div className = "total-record">Total record count:{count}</div>
 
 
@@ -183,7 +171,6 @@ const RxList = () => {
                     }
                 </React.Fragment>
             )}
-
         </React.Fragment>
     );
 };
