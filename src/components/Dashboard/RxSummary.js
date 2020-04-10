@@ -115,10 +115,10 @@ class RxSummary extends Component {
         return (
             <div>
                 <h3 className="title">Rx Summary</h3>
-                <div className="charDisplay">
                     {
                         list.length >= 2 ?
                             (
+                                <div className="charDisplay">
                                 <React.Fragment>
                                     <div className="eachgraphGrid">
                                         <BarChart data={expiration}
@@ -143,8 +143,10 @@ class RxSummary extends Component {
                                     </div>
 
                                 </React.Fragment>
+                                </div>
                             ) :
                             (<div className="text-center" >
+                                    <div className="row">
                                 <div className="spinner-grow text-primary" role="status">
                                     <span className="sr-only">Loading...</span>
                                 </div>
@@ -154,10 +156,14 @@ class RxSummary extends Component {
                                 <div className="spinner-grow text-success" role="status">
                                     <span className="sr-only">Loading...</span>
                                 </div>
-                            </div>)
+                                    </div>
+                                <div className = "row">
+                                    Processing the data...
+                                </div>
+                            </div>
+                            )
                     }
 
-                </div>
             </div>
         );
     }
