@@ -9,12 +9,12 @@ import Doughnut from './Doughnut';
 
 
 const client = FHIR.client("https://apps.hdap.gatech.edu/hapiR4/baseR4");
-const NUMPAGES = 1;
+const NUMPAGES = 2;
 var expiration = [];
 var form = {};
 var code = [];
 var status = {};
-var list = [];
+// var list = [];
 
 class RxSummary extends Component {
 
@@ -95,15 +95,16 @@ class RxSummary extends Component {
 
                     }
                 }
-                list = response;
+                // list = response;
 
                 console.log("processed all data");
-                return response.length
+                this.setState({ loading: false })
+                // return response.length
             })
-            .then((numMeds) => (
-                this.setState({ medications: numMeds, loading: false })
+            // .then((numMeds) => (
+            //     this.setState({ medications: numMeds, loading: false })
 
-            ))
+            // ))
             .catch((err) => {
                 console.log(err);
                 this.setState({ loading: false });
@@ -111,61 +112,112 @@ class RxSummary extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('load', this.getMeds);
+        console.log("component mounted")
+        // window.addEventListener('load', this.getMeds);
+        this.getMeds();
     }
 
     render () {
+        const { loading } = this.state
 
         return (
             <div>
                 <h3 className="title">Rx Summary</h3>
                     {
-                        list.length >= 2 ?
-                            (
-                                <div className="charDisplay">
+                        // list.length >= 2 ?
+                        //     (
+                        //         <div className="charDisplay">
+                        //         <React.Fragment>
+                        //             <div className="eachgraphGrid">
+                        //                 <BarChart data={expiration}
+                        //                           title={'Medicine Expiration date'}
+                        //                           color={['rgba(255, 99, 132, 0.2)',
+                        //                               'rgba(54, 162, 235, 0.2)',
+                        //                               'rgba(255, 206, 86, 0.2)',
+                        //                               'rgba(75, 192, 192, 0.2)',
+                        //                               'rgba(153, 102, 255, 0.2)',
+                        //                               'rgba(255, 159, 64, 0.2)'
+                        //                           ]}
+                        //                 />
+                        //             </div>
+                        //             <div className="eachgraphGrid">
+                        //                 <PieChart data={form} title={'Medicine Form'} color={['blue','purple','red','orange','yellow','green','teal','cyan', 'Navy', 'brown', 'pink']} />
+                        //             </div>
+                        //             <div className="eachgraphGrid">
+                        //                 <PieChart data={code} title={'Medicine Code System'} color={['blue','purple','red','orange','yellow','green','teal','cyan']} />
+                        //             </div>
+                        //             <div className="eachgraphGrid">
+                        //                 <Doughnut data={status} title={'Medicine Status'} color={['red','blue','yellow','green','teal','cyan']} />
+                        //             </div>
+
+                        //         </React.Fragment>
+                        //         </div>
+                        //     ) :
+                        //     (<div className="text-center" >
+                        //             <div className="row">
+                        //         <div className="spinner-grow text-primary" role="status">
+                        //             <span className="sr-only">Loading...</span>
+                        //         </div>
+                        //         <div className="spinner-grow text-secondary" role="status">
+                        //             <span className="sr-only">Loading...</span>
+                        //         </div>
+                        //         <div className="spinner-grow text-success" role="status">
+                        //             <span className="sr-only">Loading...</span>
+                        //         </div>
+                        //             </div>
+                        //         <div className = "row">
+                        //             Processing the data...
+                        //         </div>
+                        //     </div>
+                        //     )
+
+                    loading ?
+                        (
+                            <div className="text-center" >
+                                <div className="row">
+                                    <div className="spinner-grow text-primary" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                    <div className="spinner-grow text-secondary" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                    <div className="spinner-grow text-success" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    Processing the data...
+                                    </div>
+                            </div>
+                        ) : (
+                            <div className="charDisplay">
                                 <React.Fragment>
                                     <div className="eachgraphGrid">
                                         <BarChart data={expiration}
-                                                  title={'Medicine Expiration date'}
-                                                  color={['rgba(255, 99, 132, 0.2)',
-                                                      'rgba(54, 162, 235, 0.2)',
-                                                      'rgba(255, 206, 86, 0.2)',
-                                                      'rgba(75, 192, 192, 0.2)',
-                                                      'rgba(153, 102, 255, 0.2)',
-                                                      'rgba(255, 159, 64, 0.2)'
-                                                  ]}
+                                            title={'Medicine Expiration date'}
+                                            color={['rgba(255, 99, 132, 0.2)',
+                                                'rgba(54, 162, 235, 0.2)',
+                                                'rgba(255, 206, 86, 0.2)',
+                                                'rgba(75, 192, 192, 0.2)',
+                                                'rgba(153, 102, 255, 0.2)',
+                                                'rgba(255, 159, 64, 0.2)'
+                                            ]}
                                         />
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <PieChart data={form} title={'Medicine Form'} color={['blue','purple','red','orange','yellow','green','teal','cyan', 'Navy', 'brown', 'pink']} />
+                                        <PieChart data={form} title={'Medicine Form'} color={['blue', 'purple', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan', 'Navy', 'brown', 'pink']} />
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <PieChart data={code} title={'Medicine Code System'} color={['blue','purple','red','orange','yellow','green','teal','cyan']} />
+                                        <PieChart data={code} title={'Medicine Code System'} color={['blue', 'purple', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan']} />
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <Doughnut data={status} title={'Medicine Status'} color={['red','blue','yellow','green','teal','cyan']} />
+                                        <Doughnut data={status} title={'Medicine Status'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
                                     </div>
 
                                 </React.Fragment>
-                                </div>
-                            ) :
-                            (<div className="text-center" >
-                                    <div className="row">
-                                <div className="spinner-grow text-primary" role="status">
-                                    <span className="sr-only">Loading...</span>
-                                </div>
-                                <div className="spinner-grow text-secondary" role="status">
-                                    <span className="sr-only">Loading...</span>
-                                </div>
-                                <div className="spinner-grow text-success" role="status">
-                                    <span className="sr-only">Loading...</span>
-                                </div>
-                                    </div>
-                                <div className = "row">
-                                    Processing the data...
-                                </div>
                             </div>
-                            )
+
+                        )
                     }
 
             </div>
