@@ -54,16 +54,15 @@ code {
 .input-group{
   margin-left:auto;
   margin-right:auto;
-  background: #fff !important;
+  background: #f9fbfd !important;
 }
 .search-custom-style{
   width: 80% !important;
   padding: 50px;
   border-radius: 8px;
   /* background-color:#fbfbfb; */
-  background: #fff !important;
+  background: #f9fbfd !important;
   margin-top: 50px;
-  box-shadow: 0 6px 6px -9px rgba(0,0,0,0.4);
 }
 
 .total-record{
