@@ -11,14 +11,20 @@ const Doughnut = (props) => {
 
         new Chart(doughnutchartRef, {
             type: 'doughnut',
+            options: {
+                title: {
+                    display: true,
+                    text: props.title,
+                    fontSize: 17
+                }
+            },
             data: {
-              labels: props.data.map(d => d.label),
-              datasets: [{
-                label: props.title,
-                data: props.data.map(d => d.value),
-                backgroundColor: props.color,
-                borderColor:props.color,
-                borderWidth: 1
+                labels: Object.keys(props.data),
+                datasets: [{
+                    data: Object.values(props.data),
+                    backgroundColor: props.color,
+                    borderColor:props.color,
+                    borderWidth: 1
               }]
             }
           });        

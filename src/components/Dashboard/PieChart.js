@@ -3,8 +3,8 @@ import Chart from "chart.js";
 
 
 const PieChart = (props) => {
-
-    const PiechartRef = useRef(); 
+    const PiechartRef = useRef();
+    let values = Object.values(props.data);
 
     useEffect(()=>{
 
@@ -13,14 +13,20 @@ const PieChart = (props) => {
         new Chart(piechartRef, {
             type: 'pie',
             data: {
-              labels: props.data.map(d => d.label),
-              datasets: [{
-                label: props.title,
-                data: props.data.map(d => d.value),
+                labels: values.map(d => d.name),
+                datasets: [{
+                    data: values.map(d => d.count),
                 backgroundColor: props.color,
                 borderColor: props.color,
-                borderWidth: 1
+
               }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: props.title,
+                    fontSize: 17
+                }
             }
           });        
     })

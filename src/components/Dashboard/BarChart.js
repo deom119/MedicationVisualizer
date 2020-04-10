@@ -9,6 +9,7 @@ const BarChart = (props) => {
 
         const medchartRef = MedchartRef.current.getContext("2d");
 
+
         new Chart(medchartRef, {
             type: 'bar',
             options: {
@@ -18,21 +19,26 @@ const BarChart = (props) => {
                   {
                     ticks: {
                       min: 0,
-                      max: 100
+                      max: Object.values(props.data).reduce((a, b) => a + b, 0)
                     }
                   }
                 ]
-              }
+              },
+                title: {
+                    display: true,
+                    text: props.title,
+                    fontSize: 17
+                }
             },
             data: {
-              labels: props.data.map(d => d.label),
+              labels: Object.keys(props.data),
               datasets: [{
-                label: props.title,
-                data: props.data.map(d => d.value),
+                data: Object.values(props.data),
                 backgroundColor: props.color,
                 borderColor:props.color
               }]
             }
+
           });
     })
 
