@@ -11,13 +11,13 @@ const Navbar = () =>{
             <nav className="navbar navbar-custom-style">                
                 <ul>
                     <li className="navbar-brand navbar-band-style">
-                        <Link to="/"><img src={logo} alt="Logo" width="42px" height="36px"/></Link>
+                        <Link to="/medviz2-frontend"><img src={logo} alt="Logo" width="42px" height="36px"/></Link>
                     </li>
                     <li className="nav-link">
-                        <Link to="/Dashboard">Dashboard</Link>
+                        <Link to="/medviz2-frontend/Dashboard">Dashboard</Link>
                     </li>
                     <li className="nav-link">
-                        <Link to="/Search">Search</Link>
+                        <Link to="/medviz2-frontend/Search">Search</Link>
                     </li>
                 </ul>
             </nav>

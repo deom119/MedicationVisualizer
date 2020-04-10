@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import FHIR from 'fhirclient'
 import BarChart from './BarChart';
 import PieChart from './PieChart';
@@ -143,7 +144,17 @@ class RxSummary extends Component {
 
                                 </React.Fragment>
                             ) :
-                            (<div> Processing the records ... </div>)
+                            (<div className="text-center" >
+                                <div className="spinner-grow text-primary" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                                <div className="spinner-grow text-secondary" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                                <div className="spinner-grow text-success" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>)
                     }
 
                 </div>

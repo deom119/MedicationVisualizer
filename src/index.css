@@ -132,7 +132,7 @@ code {
 .charDisplay{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
+  grid-gap: 15px;
   margin: auto;
   width: 90%;
 }
@@ -166,3 +166,4 @@ code {
     width: 96%;
   }
 }
+

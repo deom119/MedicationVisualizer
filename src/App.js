@@ -18,13 +18,13 @@ const App =()=> {
       <div className="App">
         <Navbar/>
         <Switch>
-          <Route path="/Dashboard">
+          <Route path="/medviz2-frontend/Dashboard">
             <Dashboard />
           </Route>
-          <Route path="/Search">
+          <Route path="/medviz2-frontend/Search">
             <Search />
           </Route>
-          <Route path="/">
+          <Route path="/medviz2-frontend">
             <Home />
           </Route>
         </Switch>
