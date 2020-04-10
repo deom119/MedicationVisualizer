@@ -9,7 +9,7 @@ import Doughnut from './Doughnut';
 
 
 const client = FHIR.client("https://apps.hdap.gatech.edu/hapiR4/baseR4");
-const NUMPAGES = 0;
+const NUMPAGES = 1;
 var expiration = [];
 var form = {};
 var code = [];
@@ -36,6 +36,8 @@ class RxSummary extends Component {
 
         // Log resources and get number of resources
             .then((response) => {
+
+                console.log(response);
                 for (var i = 0; i < response.length; i++) {
                     if (response[i].batch === undefined) {
                         if (expiration['Unknown'] === undefined) {
@@ -94,6 +96,8 @@ class RxSummary extends Component {
                     }
                 }
                 list = response;
+
+                console.log("processed all data");
                 return response.length
             })
             .then((numMeds) => (
