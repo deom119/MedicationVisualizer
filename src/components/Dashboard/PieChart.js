@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from "chart.js";
+import 'chartjs-plugin-colorschemes';
 
 
 const PieChart = (props) => {
@@ -16,8 +17,8 @@ const PieChart = (props) => {
                 labels: values.map(d => d.name),
                 datasets: [{
                     data: values.map(d => d.count),
-                backgroundColor: props.color,
-                borderColor: props.color,
+                //backgroundColor: props.color,
+                //borderColor: props.color,
 
               }]
             },
@@ -29,6 +30,22 @@ const PieChart = (props) => {
                 },
                 legend: {
                     position: 'left'
+                },
+                tooltips: {
+                    callbacks: {
+                        afterLabel: function(tooltipItem) {
+                            return values[tooltipItem['index']].ids;
+                        }
+                    }
+
+                },
+                options: {
+                    plugins: {
+                        colorschemes: {
+                            scheme: 'tableau.ClassicBlue7'
+                        }
+                    }
+
                 }
             }
           });        

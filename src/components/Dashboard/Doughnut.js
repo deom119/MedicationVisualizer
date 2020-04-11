@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from "chart.js";
+import 'chartjs-plugin-colorschemes';
 
 const Doughnut = (props) => {
         
-    const DoughnutchartRef = useRef(); 
+    const DoughnutchartRef = useRef();
+    let values = Object.values(props.data);
 
     useEffect(()=>{
 
@@ -16,14 +18,28 @@ const Doughnut = (props) => {
                     display: true,
                     text: props.title,
                     fontSize: 17
+                },
+                tooltips: {
+                    callbacks: {
+                        afterLabel: function(tooltipItem) {
+                            return values[tooltipItem['index']].ids;
+                        }
+                    }
+
+                },
+                plugins: {
+                    colorschemes: {
+                        scheme: 'tableau.Classic20'
+                    }
                 }
+
             },
             data: {
                 labels: Object.keys(props.data),
                 datasets: [{
-                    data: Object.values(props.data),
-                    backgroundColor: props.color,
-                    borderColor:props.color,
+                    data: values.map(d => d.count),
+                    //backgroundColor: props.color,
+                    //borderColor:props.color,
                     borderWidth: 1
               }]
             }
