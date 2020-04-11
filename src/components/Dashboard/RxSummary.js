@@ -213,7 +213,7 @@ class RxSummary extends Component {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    Processing the data...
+                                    Page Loading
                                     </div>
                             </div>
                         ) : (

@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FHIR from 'fhirclient'
-
-
 const client = FHIR.client("https://apps.hdap.gatech.edu/hapiR4/baseR4");
 const NUMPAGES = 0;
 var list = [];
 var rxLists = [];
-var count = 0;
 
 class RxList extends Component {
 
@@ -42,12 +39,13 @@ class RxList extends Component {
 
     getMed () {
             // console.log('click registered')
-            this.setState({ loading: false });
+
 
             client.request("Medication", { pageLimit: NUMPAGES, flat: true })
 
             // Log resources and get number of resources
                 .then((response) => {
+
                     for (var i = 0; i < response.length; i++) {
                         if (response[i].code !== undefined && response[i].code.coding !== undefined) {
                             //var temp = response[i].code.coding[0].system;
@@ -95,14 +93,9 @@ class RxList extends Component {
                         }
                     }
                     list = response;
-                    console.log(list);
-                    this.setState({ loading: false })
-                    // return response.length
-                })
-                // .then((numMeds) => (
-                //     this.setState({ medications: numMeds, loading: false })
+                    this.setState({ loading: false});
 
-                // ))
+                })
                 .catch((err) => {
                     console.log(err);
                     this.setState({ loading: false });
@@ -110,16 +103,18 @@ class RxList extends Component {
         }
 
     componentDidMount () {
+        this.setState({ loading: true });
         this.getMed();
     };
 
+
     displayRx() {
-        console.log(this.searchWord, this.select);
-        //console.log(list);
+        this.setState({ clicked: true });
+
         rxLists = [];
+
         for (var i = 0; i < list.length; i++) {
-            //console.log(this.select === '1');
-            if (this.select === '0') {
+            if (this.select === 0 || this.select === '0') {
                 if (list[i].medName.toLowerCase().includes(this.searchWord)) {
                     rxLists.push(list[i]);
                 }
@@ -155,10 +150,7 @@ class RxList extends Component {
             }
 
         }
-        count = rxLists.length;
-        console.log(rxLists);
-        this.setState({ loading: true });
-
+        this.setState({ count: rxLists.length });
     }
 
     // if(isLoaded){
@@ -167,78 +159,115 @@ class RxList extends Component {
 
     render () {
         const {loading} = this.state;
+        const {clicked} = this.state;
+        const {count} = this.state;
+
 
 
         return (
-            <React.Fragment>
-                <div className="input-group input-group-lg search-custom-style" role="toolbar"
-                     aria-label="Toolbar with button groups">
-                    <select onChange={this.updateDropdown} className="custom-select input-group-prepend col-md-2"
-                            id="dropdown">
-                        <option value='0' defaultValue="selected">Name</option>
-                        <option value='1'>ID</option>
-                        <option value='2'>Code System</option>
-                        <option value='3'>Code</option>
-                        <option value='4'>Ingredient</option>
-                        <option value='5'>Form</option>
-                        <option value='6'>Expiration Year</option>
-                        <option value='7'>Batch No</option>
-                    </select>
-
-                    <input className="form-control" type="search" placeholder="Search Medication"
-                           aria-label="Text input with dropdown button" onChange={this.handleSearch}/>
-
-                    <div className="input-group-append">
-                        <input className="btn btn-primary" type="submit" value="Search" onClick={this.displayRx}>
-                        </input>
-                    </div>
-                </div>
-                {!loading ? (<p>No records to display</p>) : (
-                    <React.Fragment>
-
-                        {
-                            count === 0 ?
-                                (<div>no records returned</div>) :
-                                (
-                                    <div className='displayRecord'>
-                                        <div className="total-record">Total record count:{count}</div>
-
-
-                                        <table className="table table-hover-md table-striped">
-                                            <thead>
-                                            <tr className="table-primary">
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Code</th>
-                                                <th scope="col">Form</th>
-                                                <th scope="col">Ingredient</th>
-                                                <th scope="col">Batch No</th>
-                                                <th scope="col">Expiration Date</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {rxLists.map(rxlist => (
-                                                <tr key={rxlist.id}>
-                                                    <td>{rxlist.id}</td>
-                                                    <td>{rxlist.medName}</td>
-                                                    <td>{rxlist.codeSystem + ": " + rxlist.codeID}</td>
-                                                    <td>{rxlist.formName}</td>
-                                                    <td>{rxlist.ingredients}</td>
-                                                    <td>{rxlist.lotNum}</td>
-                                                    <td>{rxlist.exDate}</td>
-                                                </tr>
-                                            ))
-                                            }
-                                            </tbody>
-                                        </table>
-
+            <div>
+                {
+                    loading ?
+                        (
+                            <div className="text-center" >
+                                <div className="row">
+                                    <div className="spinner-grow text-primary" role="status">
+                                        <span className="sr-only">Loading...</span>
                                     </div>
-                                )
-                        }
-                    </React.Fragment>
+                                    <div className="spinner-grow text-secondary" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                    <div className="spinner-grow text-success" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    Page Loading
+                                </div>
+                            </div>
+                        ) : (
+                            <React.Fragment>
+                                <div className="input-group input-group-lg search-custom-style" role="toolbar"
+                                     aria-label="Toolbar with button groups">
+                                    <select onChange={this.updateDropdown} className="custom-select input-group-prepend col-md-2"
+                                            id="dropdown">
+                                        <option value='0' defaultValue="selected">Name</option>
+                                        <option value='1'>ID</option>
+                                        <option value='2'>Code System</option>
+                                        <option value='3'>Code</option>
+                                        <option value='4'>Ingredient</option>
+                                        <option value='5'>Form</option>
+                                        <option value='6'>Expiration Year</option>
+                                        <option value='7'>Batch No</option>
+                                    </select>
+
+                                    <input className="form-control" type="search" placeholder="Search Medication"
+                                           aria-label="Text input with dropdown button" onChange={this.handleSearch}/>
+
+                                    <div className="input-group-append">
+                                        <input className="btn btn-primary" type="submit" value="Search" onClick={this.displayRx}>
+                                        </input>
+                                    </div>
+                                </div>
+                                { !clicked ? (<p></p>) : (
+                                    <React.Fragment> {
+                                        count === 0 ? (<div className = 'row'>No Result Found</div>) : (
+                                            <div className='displayRecord'>
+                                                <div className="total-record">Total Record Count:{count}</div>
+
+
+                                                <table className="table table-hover-md table-striped">
+                                                    <thead>
+                                                    <tr className="table-primary">
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Code</th>
+                                                        <th scope="col">Form</th>
+                                                        <th scope="col">Ingredient</th>
+                                                        <th scope="col">Batch No</th>
+                                                        <th scope="col">Expiration Date</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {rxLists.map(rxlist => (
+                                                        <tr key={rxlist.id}>
+                                                            <td>{rxlist.id}</td>
+                                                            <td>{rxlist.medName}</td>
+                                                            <td>{rxlist.codeSystem + ": " + rxlist.codeID}</td>
+                                                            <td>{rxlist.formName}</td>
+                                                            <td>{rxlist.ingredients}</td>
+                                                            <td>{rxlist.lotNum}</td>
+                                                            <td>{rxlist.exDate}</td>
+                                                        </tr>
+                                                    ))
+                                                    }
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+
+
+                                        )
+
+
+                                    }
+                                    </React.Fragment>
+
+
+
+                                )}
+
+
+
+                            </React.Fragment>
+
+
+
+
                 )}
-            </React.Fragment>
-        );
+            </div>
+        )
+
     }
 
 };
