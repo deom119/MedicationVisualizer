@@ -3,7 +3,6 @@ import Chart from "chart.js";
 
 const BarChart = (props) => {
 
-    console.log("bar in");
     const MedchartRef = useRef(); 
 
     useEffect(() => { 
