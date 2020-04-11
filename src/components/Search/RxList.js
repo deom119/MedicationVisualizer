@@ -1,146 +1,212 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-const RxList = () => {
-
-    const [rxLists,setRxLists] = useState([]);
-    //const [resource,setResource] = useState({})    
-    //const [rx,setRx] = useState({})
-    //const [code,setCode] = useState("")
-    //const [system,setSystem] = useState("")
-    //const [name,setName] = useState("")
-    //const [isRxLoading,setIsRxLoading] =useState(false)
-
-    const [isLoaded,setIsLoaded] =useState(false);
-    const [error,setError]=useState(null);
-    const [searchWord, setsearchWord] = useState("");
-    const [select, setselect] = useState('0');
-    const [count, setCount] = useState(0);
-
-    const updateDropdown = (e)=>{
-        setselect(e.target.value)
-    };
-
-    const handleSearch = (e)=>{
-        setsearchWord(e.target.value)
-    };
-
-    const displayRx = ()=>{
-        var url;
-            if (select === '0') {
-            url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?code:text=`+searchWord+`&_pretty=true`;
-        } else if (select === '1') {
-            url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?code:coding:code=`+searchWord+`&_pretty=true`;
-        } else {
-            url =`https://apps.hdap.gatech.edu/hapiR4/baseR4/Medication?lot-number=`+searchWord+`&_pretty=true`;
-        }
-        //console.log(url);
-        //console.log(searchWord)
-        if(searchWord){
-            //console.log(`setsearchWord`,setsearchWord)
-            fetch(url)
-            .then(response =>{
-                if(response.ok){
-                    //console.log("response ok");
-                    return response.json();
-                }else{
-                    throw Error ("Error while fetching data")
-                }
-            })
-            .then(rx=>{
-
-                //console.log("check 1 " + rx.entry.length);
-                const count = rx.total;
-                //console.log(count + " total count");
-                for (var i = 0; i < rx.entry.length; i++) {
-                    //console.log(i + " turn");
-                    rx.entry[i].resource.ingredients = '';
-                    //console.log("check 11");
-                    if (rx.entry[i].resource.batch === undefined) {
-                        rx.entry[i].resource.batch.expirationDate = '';
-                        rx.entry[i].resource.batch.lotNumber = '';
-                    }
-                    //console.log("check 12");
-                    if (rx.entry[i].resource.code.coding[0] === undefined) {
-                        rx.entry[i].resource.code.coding[0].code = '';
-                        rx.entry[i].resource.code.coding[0].display = '';
-                    }
-                    //console.log("check 13");
-                    if (rx.entry[i].resource.form.coding[0] === undefined) {
-                        rx.entry[i].resource.form.coding[0].display = '';
-                    }
-                    //console.log("check 14");
-                    if (rx.entry[i].resource.ingredient === undefined) {
-                        rx.entry[i].resource.ingredient[0].itemCodeableConcept.coding[0].code = '';
-                        rx.entry[i].resource.ingredient[0].itemCodeableConcept.coding[0].display = '';
-                    }
-                    //console.log("check 15");
-                    //console.log(rx.entry[i].resource.ingredient.length);
-                    for (var j = 0; j < rx.entry[i].resource.ingredient.length; j++) {
-                        if (rx.entry[i].resource.ingredient[j].itemCodeableConcept !== undefined) {
-                            rx.entry[i].resource.ingredients += rx.entry[i].resource.ingredient[j].itemCodeableConcept.coding[0].display + " ";
-                        }
-                    }
+import FHIR from 'fhirclient'
 
 
-                }
+const client = FHIR.client("https://apps.hdap.gatech.edu/hapiR4/baseR4");
+const NUMPAGES = 0;
+var list = [];
+var rxLists = [];
+var count = 0;
 
-                if (count> 0){                
-                    setCount(count);
-                    setRxLists(rx.entry);
-                    setIsLoaded(true);
-                }else{
-                    setIsLoaded(true)
-                }
-                return rx.entry;
-            })
-            .catch(error=>{
-                setError(error);
-            })
-        }else{
-            console.log(`enter medication`);
-        }        
+class RxList extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+        this.searchWord = "";
+        this.select = 0;
+
+        this.updateDropdown = this.updateDropdown.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
+        this.getMed = this.getMed.bind(this);
+        this.displayRx = this.displayRx.bind(this);
+        //this.searchWord = this.set\\\searchWord.bind(this);
+        //this.setselect = this.setselect.bind(this);
     }
 
-    if(error){
-        return <p style={{color:'Red'}}> Error while loading data</p>
+
+    setselect (v) {
+        this.select = v;
+    }
+
+    updateDropdown (e) {
+        this.select = e.target.value;
+    };
+
+    handleSearch (e) {
+        this.searchWord = e.target.value.toLowerCase();
+    };
+
+    getMed () {
+            // console.log('click registered')
+            this.setState({ loading: false });
+
+            client.request("Medication", { pageLimit: NUMPAGES, flat: true })
+
+            // Log resources and get number of resources
+                .then((response) => {
+                    for (var i = 0; i < response.length; i++) {
+                        if (response[i].code !== undefined && response[i].code.coding !== undefined) {
+                            //var temp = response[i].code.coding[0].system;
+                            if (response[i].code.coding[0].system !== undefined) {
+                                response[i].codeSystem = response[i].code.coding[0].system.split('/').pop().toLowerCase();
+                            } else {
+                                response[i].codeSystem = 'Unknown'
+                            }
+                            if (response[i].code.coding[0].code !== undefined) {
+                                response[i].codeID = response[i].code.coding[0].code;
+                            }
+                            if (response[i].code.coding[0].display !== undefined) {
+                                response[i].medName = response[i].code.coding[0].display;
+                            } else {
+                                response[i].medName = 'Unknown';
+                            }
+                        } else {
+                            response[i].codeSystem = 'Unknown';
+                            response[i].codeID = 'Unknown';
+                            response[i].medName = 'Unknown';
+                        }
+                        if (response[i].form !== undefined && response[i].form.coding[0] !== undefined && response[i].form.coding[0].display !== undefined) {
+                            response[i].formName = response[i].form.coding[0].display;
+                        } else {
+                            response[i].formName = 'Unknown';
+                        }
+                        if (response[i].ingredient === undefined) {
+                            //response[i].ingredient[0].itemCodeableConcept.coding[0].code = '';
+                            response[i].ingredients = 'Unknown';
+                        } else {
+                            //console.log(i);
+                            response[i].ingredients = '';
+                            for (var j = 0; j < response[i].ingredient.length; j++) {
+                                if (response[i].ingredient[j].itemCodeableConcept !== undefined) {
+                                    response[i].ingredients += response[i].ingredient[j].itemCodeableConcept.coding[0].display + " ";
+                                }
+                            }
+                        }
+                        if (response[i].batch !== undefined) {
+                            response[i].exDate = response[i].batch.expirationDate;
+                            response[i].lotNum = response[i].batch.lotNumber;
+                        } else {
+                            response[i].exDate = 'Unknown';
+                            response[i].lotNum = 'Unknown';
+                        }
+                    }
+                    list = response;
+                    console.log(list);
+                    this.setState({ loading: false })
+                    // return response.length
+                })
+                // .then((numMeds) => (
+                //     this.setState({ medications: numMeds, loading: false })
+
+                // ))
+                .catch((err) => {
+                    console.log(err);
+                    this.setState({ loading: false });
+                });
+        }
+
+    componentDidMount () {
+        this.getMed();
+    };
+
+    displayRx() {
+        console.log(this.searchWord, this.select);
+        //console.log(list);
+        rxLists = [];
+        for (var i = 0; i < list.length; i++) {
+            //console.log(this.select === '1');
+            if (this.select === '0') {
+                if (list[i].medName.toLowerCase().includes(this.searchWord)) {
+                    rxLists.push(list[i]);
+                }
+
+            } else if (this.select === '1') {
+                if (list[i].id.toLowerCase().includes(this.searchWord)) {
+                    rxLists.push(list[i]);
+                }
+            } else if (this.select === '2') {
+                if (list[i].codeSystem.toLowerCase().includes(this.searchWord)) {
+                    rxLists.push(list[i]);
+                }
+            } else if (this.select === '3') {
+                if (list[i].codeID.toLowerCase().includes(this.searchWord)) {
+                    rxLists.push(list[i]);
+                }
+            } else if (this.select === '4') {
+                if (list[i].ingredients.toLowerCase().includes(this.searchWord)) {
+                    rxLists.push(list[i]);
+                }
+            } else if (this.select === '5') {
+                if (list[i].formName.toLowerCase().includes(this.searchWord)) {
+                    rxLists.push(list[i]);
+                }
+            } else if (this.select === '6') {
+                if (list[i].exDate.toString().includes(this.searchWord)) {
+                    rxLists.push(list[i]);
+                }
+            } else if (this.select === '7') {
+                if (list[i].lotNum.toString().includes(this.searchWord)) {
+                    rxLists.push(list[i]);
+                }
+            }
+
+        }
+        count = rxLists.length;
+        console.log(rxLists);
+        this.setState({ loading: true });
+
     }
 
     // if(isLoaded){
     //     return <p>Rx Loading...</p>
     // }
 
-    return (
-        <React.Fragment>
-            <div className="input-group input-group-lg search-custom-style" role="toolbar" aria-label="Toolbar with button groups">
-                <select onChange={updateDropdown} className="custom-select input-group-prepend col-md-2" id="dropdown">
-                    <option value='0' defaultValue="selected">Name</option>
-                    <option value='1'>Code</option>
-                    <option value='2'>Batch No</option>
-                </select>
+    render () {
+        const {loading} = this.state;
 
-                <input className="form-control" type="search" placeholder="Search Medication"  aria-label="Text input with dropdown button" onChange={handleSearch}/>
 
-                <div className="input-group-append">
-                    <input className="btn btn-primary" type="submit" value="Search" onClick={displayRx}>
-                    </input>
+        return (
+            <React.Fragment>
+                <div className="input-group input-group-lg search-custom-style" role="toolbar"
+                     aria-label="Toolbar with button groups">
+                    <select onChange={this.updateDropdown} className="custom-select input-group-prepend col-md-2"
+                            id="dropdown">
+                        <option value='0' defaultValue="selected">Name</option>
+                        <option value='1'>ID</option>
+                        <option value='2'>Code System</option>
+                        <option value='3'>Code</option>
+                        <option value='4'>Ingredient</option>
+                        <option value='5'>Form</option>
+                        <option value='6'>Expiration Year</option>
+                        <option value='7'>Batch No</option>
+                    </select>
+
+                    <input className="form-control" type="search" placeholder="Search Medication"
+                           aria-label="Text input with dropdown button" onChange={this.handleSearch}/>
+
+                    <div className="input-group-append">
+                        <input className="btn btn-primary" type="submit" value="Search" onClick={this.displayRx}>
+                        </input>
+                    </div>
                 </div>
-            </div>
-            { !isLoaded?(<p >No records to display</p>):(  
-                <React.Fragment>
+                {!loading ? (<p>No records to display</p>) : (
+                    <React.Fragment>
 
-                    {
-                        count===0?
-                            (<div>no records returned</div>):
-                            (                                
-                                <div className='displayRecord'>
-                                    <div className = "total-record">Total record count:{count}</div>
+                        {
+                            count === 0 ?
+                                (<div>no records returned</div>) :
+                                (
+                                    <div className='displayRecord'>
+                                        <div className="total-record">Total record count:{count}</div>
 
 
-                                    <table className ="table table-hover-md table-striped">
-                                        <thead>
-                                            <tr className = "table-primary">
+                                        <table className="table table-hover-md table-striped">
+                                            <thead>
+                                            <tr className="table-primary">
                                                 <th scope="col">ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Code</th>
@@ -149,30 +215,32 @@ const RxList = () => {
                                                 <th scope="col">Batch No</th>
                                                 <th scope="col">Expiration Date</th>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                        {rxLists.map(rxlist=> (
-                                                    <tr key = {rxlist.fullUrl}>
-                                                        <td>{rxlist.resource.id}</td>
-                                                        <td>{rxlist.resource.code.coding[0].display}</td>
-                                                        <td>{rxlist.resource.code.coding[0].code}</td>
-                                                        <td>{rxlist.resource.form.coding[0].display}</td>
-                                                        <td>{rxlist.resource.ingredients}</td>
-                                                        <td>{rxlist.resource.batch.lotNumber}</td>
-                                                        <td>{rxlist.resource.batch.expirationDate}</td>
-                                                    </tr>
+                                            </thead>
+                                            <tbody>
+                                            {rxLists.map(rxlist => (
+                                                <tr key={rxlist.id}>
+                                                    <td>{rxlist.id}</td>
+                                                    <td>{rxlist.medName}</td>
+                                                    <td>{rxlist.codeSystem + ": " + rxlist.codeID}</td>
+                                                    <td>{rxlist.formName}</td>
+                                                    <td>{rxlist.ingredients}</td>
+                                                    <td>{rxlist.lotNum}</td>
+                                                    <td>{rxlist.exDate}</td>
+                                                </tr>
                                             ))
-                                        }
-                                        </tbody>
-                                    </table>
+                                            }
+                                            </tbody>
+                                        </table>
 
-                                </div>
-                            )
-                    }
-                </React.Fragment>
-            )}
-        </React.Fragment>
-    );
+                                    </div>
+                                )
+                        }
+                    </React.Fragment>
+                )}
+            </React.Fragment>
+        );
+    }
+
 };
 
 export default RxList;
