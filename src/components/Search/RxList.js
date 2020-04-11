@@ -103,8 +103,10 @@ class RxList extends Component {
         }
 
     componentDidMount () {
-        this.setState({ loading: true });
-        this.getMed();
+        if (list.length === 0) {
+            this.setState({ loading: true });
+            this.getMed();
+        }
     };
 
 

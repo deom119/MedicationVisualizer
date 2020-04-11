@@ -188,7 +188,9 @@ class RxSummary extends Component {
     }
 
     componentDidMount() {
-        this.getMeds();
+        if (expiration.length === 0) {
+            this.getMeds();
+        }
     }
 
     render () {
