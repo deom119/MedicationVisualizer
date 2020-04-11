@@ -190,3 +190,44 @@ code {
   color: #3f65ff;
   font-size: 25px;
 }
+
+
+.footer-margin{
+  margin-top: 200px;
+}
+
+
+.footer-distributed {
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  padding: 5px 30px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  border-top: 1px solid#f4f3f3;
+
+}
+
+.footer-distributed .footer-left  {
+  color:#131313;
+  font-size: 18px;
+}
+
+.footer-distributed .footer-right {
+  text-align: right;
+}
+
+
+.footer-distributed .footer-right a:hover{
+    transform:scale(1.1); -webkit-transform:scale(1.1);
+  
+  }
+
+.footer-distributed p.footer-links a:hover{
+  text-decoration:none;
+}
