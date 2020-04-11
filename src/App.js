@@ -10,6 +10,7 @@ import Navbar from './components/Navbar/Navbar';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Search from './pages/Search/Search';
 import Home from './pages/Home/Home';
+import Footer from './components/Footer/Footer';
 
 const App =()=> {
   return (
@@ -27,11 +28,13 @@ const App =()=> {
           <Route path="/medviz2-frontend">
             <Home />
           </Route>
-        </Switch>
+        </Switch>        
+        <Footer/>
       </div>
     </Router>    
   );
 }
 
 export default App;
+
 
