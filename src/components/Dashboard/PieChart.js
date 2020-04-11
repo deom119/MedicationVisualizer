@@ -26,9 +26,6 @@ const PieChart = (props) => {
                     display: true,
                     text: props.title,
                     fontSize: 17
-                },
-                legend: {
-                    position: 'left'
                 }
             }
           });        

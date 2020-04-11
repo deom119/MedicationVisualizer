@@ -14,8 +14,7 @@ const BarChart = (props) => {
         new Chart(medchartRef, {
             type: 'bar',
             options: {
-              maintainAspectRatio: false,
-              legend: { display: false },
+                maintainAspectRatio: false,
               scales: {
                 yAxes: [
                   {
@@ -26,11 +25,11 @@ const BarChart = (props) => {
                   }
                 ]
               },
-              title: {
-                  display: true,
-                  text: props.title,
-                  fontSize: 17
-              }
+                title: {
+                    display: true,
+                    text: props.title,
+                    fontSize: 17
+                }
             },
             data: {
               labels: Object.keys(props.data),
