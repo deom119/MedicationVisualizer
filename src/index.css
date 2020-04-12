@@ -190,3 +190,21 @@ code {
   color: #3f65ff;
   font-size: 25px;
 }
+
+.countSize {
+  background-color:#fff;
+  border: 1px solid#eee;
+  padding: 15px;
+  padding-top: 150px;
+  border-radius: 10px;
+  box-shadow: 0 6px 6px -9px rgba(0,0,0,0.4);
+
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Concert One';
+  color: #4d5762;
+  font-size: 50px;
+}
+
