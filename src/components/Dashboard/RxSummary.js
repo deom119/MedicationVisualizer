@@ -18,6 +18,8 @@ var ingredient = [];
 var ingredient_count = [];
 var count = 0;
 var batNo = [];
+var dispensed = {}
+var dispensed_count = 0
 
 class RxSummary extends Component {
 
@@ -200,9 +202,59 @@ class RxSummary extends Component {
             });
     }
 
+    getDispensed() {
+        this.setState({ loading: true });
+
+        const updateCount = med_name => {
+            if (!(med_name in dispensed)) {
+                dispensed[med_name] = 1
+            }
+            else {
+                dispensed[med_name] += 1
+            }
+        }
+
+        client.request("MedicationDispense", { pageLimit: NUMPAGES, flat: true })
+        .then((response) => {
+            console.log(response)
+            response.forEach(med_dispense => {
+                // Use medication references to update count
+                if (med_dispense.medicationReference !== undefined) {
+                    updateCount(med_dispense.medicationReference.display)
+                }
+                
+                // Use medication codeable concept to update count
+                else if (med_dispense.medicationCodeableConcept !== undefined) {
+                    updateCount(med_dispense.medicationCodeableConcept.coding[0].display)
+                }
+
+                // Case where medication being administered is not stated
+                else {
+                    updateCount('Unknown')
+                }
+            })
+            
+            dispensed_count = Object.values(dispensed).reduce((a, b) => (
+                a + b
+            ))
+            // console.log(Object.keys(dispensed).length)
+            // console.log(Object.values(dispensed).reduce((a,b) => (
+            //     a + b
+            // )))
+            console.log(dispensed)
+            this.setState({ loading: false })
+        })
+        .catch((err) => {
+            console.log(err);
+            this.setState({ loading: false });
+        })
+    }
+    
+
     componentDidMount() {
         if (expiration.length === 0) {
             this.getMeds();
+            this.getDispensed()
         }
     }
 
@@ -212,7 +264,8 @@ class RxSummary extends Component {
         return (
             <div>
                 <h3 className="title">Rx Summary</h3>
-                <h5>Total Medication Records Found: {count}</h5>
+                <h6>Total Medication Records Found: {count}</h6>
+                <h6>Total Medications Dispensed: {dispensed_count}</h6>
                     {
                     loading ?
                         (
@@ -270,6 +323,9 @@ class RxSummary extends Component {
                                     </div>
                                     <div className="eachgraphGrid">
                                         <Doughnut data={status} title={'Medication Status'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
+                                    </div>
+                                    <div className="eachgraphGrid">
+                                        <Doughnut data={dispensed} title={'Amount of Each Medication Dispensed'} color={['blue', 'purple', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan']} />
                                     </div>
                                     {/* <div className="eachgraphGrid, countSize">
                                         <p>Total {count} Records Found</p>
