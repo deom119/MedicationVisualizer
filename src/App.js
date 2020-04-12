@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-<<<<<<< HEAD
 import Navbar from './components/Navbar/Navbar';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Search from './pages/Search/Search';
@@ -33,19 +32,6 @@ const App =()=> {
         <Footer/>
       </div>
     </Router>    
-=======
-import Navbar from './components/Navbar';
-import RxList from './components/RxList';
-import InitializeMeds from './components/InitializeMeds'
-
-const App =()=> {
-  return (
-    <div className="App">
-      <Navbar/>
-      <RxList/>
-      <InitializeMeds/>
-    </div>
->>>>>>> 0ab0a427555b0c7837db531a5cb9aef4a6428aac
   );
 }
 
