@@ -16,7 +16,7 @@ var code = [];
 var status = [];
 var ingredient = [];
 var ingredient_count = [];
-
+// a;sdlfkj;alsdkjf;k
 
 class RxSummary extends Component {
 
