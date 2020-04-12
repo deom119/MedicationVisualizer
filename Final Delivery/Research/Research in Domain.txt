@@ -1,0 +1,23 @@
+HL7 FHIR - Medication
+https://www.hl7.org/fhir/medication.html
+
+RxNorm API
+https://mor.nlm.nih.gov/download/rxnav/RxNormAPIs.html#
+
+Confluence page for libraries for different languages
+https://confluence.hl7.org/display/FHIR/Open+Source+Implementations
+
+Open-source JavaScript library for communication with FHIR servers
+https://github.com/FHIR/fhir.js
+
+Asymmetrik Extensible Server Framework for Healthcare
+https://github.com/Asymmetrik/node-fhir-server-core
+
+Chart.js
+https://www.chartjs.org/ 
+
+D3
+https://d3js.org/ 
+
+Sequences Sunburst
+https://observablehq.com/@kerryrodden/sequences-sunburst 
