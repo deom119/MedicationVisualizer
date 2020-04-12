@@ -16,7 +16,8 @@ var code = [];
 var status = [];
 var ingredient = [];
 var ingredient_count = [];
-// a;sdlfkj;alsdkjf;k
+var count = 0;
+var batNo = [];
 
 class RxSummary extends Component {
 
@@ -40,18 +41,24 @@ class RxSummary extends Component {
             .then((response) => {
 
                 console.log(response);
+                count = response.length;
                 for (var i = 0; i < response.length; i++) {
                     if (response[i].batch === undefined) {
                         if (expiration['Unknown'] === undefined) {
                             expiration['Unknown'] = {count: 1, ids: response[i].id + ", "}
+                            batNo['Unknown'] = {count: 1, ids: response[i].id + ", "}
                         } else {
                             //console.log(expiration['Unknown']);
                             expiration['Unknown'].count += 1;
                             expiration['Unknown'].ids += response[i].id + ", "
+                            batNo['Unknown'].count += 1;
+                            batNo['Unknown'].ids += response[i].id + ", "
                         }
                         if (expiration['Unknown'].count % 4 === 0) {
                             expiration['Unknown'].ids += "\n";
+                            batNo['Unknown'].ids += "\n";
                         }
+
                     } else {
                         var year = response[i].batch.expirationDate.split('-')[0];
                         if (expiration[year] === undefined) {
@@ -59,6 +66,12 @@ class RxSummary extends Component {
                         } else {
                             expiration[year].count += 1;
                             expiration[year].ids += "\n " + response[i].id
+                        }
+                        if (batNo[response[i].batch.lotNumber] === undefined) {
+                            batNo[response[i].batch.lotNumber] = {count: 1, ids: response[i].id}
+                        } else {
+                            batNo[response[i].batch.lotNumber].count += 1;
+                            batNo[response[i].batch.lotNumber].ids += "\n " + response[i].id
                         }
                     }
 
@@ -223,7 +236,7 @@ class RxSummary extends Component {
                                 <React.Fragment>
                                     <div className="eachgraphGrid">
                                         <BarChart data={expiration}
-                                            title={'Medicine Expiration date'}
+                                            title={'Medication Expiration date'}
                                             color={['rgba(255, 99, 132, 0.2)',
                                                 'rgba(54, 162, 235, 0.2)',
                                                 'rgba(255, 206, 86, 0.2)',
@@ -234,10 +247,10 @@ class RxSummary extends Component {
                                         />
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <PieChart data={form} title={'Medicine Form'} color={['blue', 'purple', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan', 'Navy', 'brown', 'pink']} />
+                                        <Doughnut data={batNo} title={'Medication Batch Number'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <Doughnut data={ingredient} title={'Ingredients'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
+                                        <Doughnut data={ingredient} title={'Medication Ingredients'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
                                     </div>
                                     <div className="eachgraphGrid">
                                         <BarChart data={ingredient_count} title={'Ingredient Count for Each Medication'} color={['rgba(255, 99, 132, 0.2)',
@@ -249,10 +262,16 @@ class RxSummary extends Component {
                                         ]} />
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <PieChart data={code} title={'Medicine Code System'} color={['blue', 'purple', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan']} />
+                                        <PieChart data={code} title={'Medication Code System'} color={['blue', 'purple', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan']} />
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <Doughnut data={status} title={'Medicine Status'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
+                                        <PieChart data={form} title={'Medication Form'} color={['blue', 'purple', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan', 'Navy', 'brown', 'pink']} />
+                                    </div>
+                                    <div className="eachgraphGrid">
+                                        <Doughnut data={status} title={'Medication Status'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
+                                    </div>
+                                    <div className="eachgraphGrid, countSize">
+                                        <p>Total {count} Records Found</p>
                                     </div>
                                 </React.Fragment>
                             </div>
