@@ -7,11 +7,8 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.4.1",
-<<<<<<< HEAD
     "chart.js": "^2.9.3",
     "chartjs-plugin-colorschemes": "^0.4.0",
-=======
->>>>>>> 0ab0a427555b0c7837db531a5cb9aef4a6428aac
     "fhirclient": "^2.3.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
