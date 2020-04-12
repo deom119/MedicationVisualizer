@@ -212,6 +212,7 @@ class RxSummary extends Component {
         return (
             <div>
                 <h3 className="title">Rx Summary</h3>
+                <h5>Total Medication Records Found: {count}</h5>
                     {
                     loading ?
                         (
@@ -270,9 +271,9 @@ class RxSummary extends Component {
                                     <div className="eachgraphGrid">
                                         <Doughnut data={status} title={'Medication Status'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
                                     </div>
-                                    <div className="eachgraphGrid, countSize">
+                                    {/* <div className="eachgraphGrid, countSize">
                                         <p>Total {count} Records Found</p>
-                                    </div>
+                                    </div> */}
                                 </React.Fragment>
                             </div>
 
