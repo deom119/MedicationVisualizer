@@ -9,7 +9,7 @@ const Footer = () => {
                 </div>
 
                 <div className="footer-right">
-                    <a href="https://github.gatech.edu/gt-cs6440-hit-spring2020/MedicationVisualizer-2">Follow us: <i class="fab fa-github"></i></a>
+                    <a href="https://github.gatech.edu/gt-cs6440-hit-spring2020/MedicationVisualizer-2">Follow us: <i className="fab fa-github"></i></a>
                 </div>
             </footer>
         </div>

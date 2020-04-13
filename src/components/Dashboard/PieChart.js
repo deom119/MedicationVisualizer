@@ -52,7 +52,7 @@ const PieChart = (props) => {
     })
 
     return (
-            <canvas id="PieChart" ref={PiechartRef} />
+            <canvas id="PieChart" height="185px" ref={PiechartRef} />
     );
 };
 

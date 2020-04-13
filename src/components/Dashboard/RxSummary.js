@@ -18,6 +18,8 @@ var ingredient = [];
 var ingredient_count = [];
 var count = 0;
 var batNo = [];
+var dispensed = {}
+var dispensed_count = 0
 
 class RxSummary extends Component {
 
@@ -200,9 +202,59 @@ class RxSummary extends Component {
             });
     }
 
+    getDispensed() {
+        this.setState({ loading: true });
+
+        const updateCount = med_name => {
+            if (!(med_name in dispensed)) {
+                dispensed[med_name] = 1
+            }
+            else {
+                dispensed[med_name] += 1
+            }
+        }
+
+        client.request("MedicationDispense", { pageLimit: NUMPAGES, flat: true })
+        .then((response) => {
+            //console.log(response)
+            response.forEach(med_dispense => {
+                // Use medication references to update count
+                if (med_dispense.medicationReference !== undefined) {
+                    updateCount(med_dispense.medicationReference.display)
+                }
+                
+                // Use medication codeable concept to update count
+                else if (med_dispense.medicationCodeableConcept !== undefined) {
+                    updateCount(med_dispense.medicationCodeableConcept.coding[0].display)
+                }
+
+                // Case where medication being administered is not stated
+                else {
+                    updateCount('Unknown')
+                }
+            })
+            
+            dispensed_count = Object.values(dispensed).reduce((a, b) => (
+                a + b
+            ))
+            // console.log(Object.keys(dispensed).length)
+            // console.log(Object.values(dispensed).reduce((a,b) => (
+            //     a + b
+            // )))
+            console.log(dispensed)
+            this.setState({ loading: false })
+        })
+        .catch((err) => {
+            console.log(err);
+            this.setState({ loading: false });
+        })
+    }
+    
+
     componentDidMount() {
         if (expiration.length === 0) {
             this.getMeds();
+            this.getDispensed()
         }
     }
 
@@ -211,7 +263,7 @@ class RxSummary extends Component {
 
         return (
             <div>
-                <h3 className="title">Rx Summary</h3>
+                <h2 className="title">Rx Summary</h2>
                     {
                     loading ?
                         (
@@ -232,8 +284,11 @@ class RxSummary extends Component {
                                     </div>
                             </div>
                         ) : (
-                            <div className="charDisplay">
+                            <div>
+                                <h5 className="title2">Total Medication Records Found: {count}</h5>
+                                <h5 className="title2">Total Medications Dispensed: {dispensed_count}</h5>
                                 <React.Fragment>
+                                    <div className="charDisplay">
                                     <div className="eachgraphGrid">
                                         <BarChart data={expiration}
                                             title={'Medication Expiration date'}
@@ -247,10 +302,10 @@ class RxSummary extends Component {
                                         />
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <Doughnut data={batNo} title={'Medication Batch Number'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
+                                        <Doughnut data={batNo} title={'Medication Batch Number'}/>
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <Doughnut data={ingredient} title={'Medication Ingredients'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
+                                        <Doughnut data={ingredient} title={'Medication Ingredients'} />
                                     </div>
                                     <div className="eachgraphGrid">
                                         <BarChart data={ingredient_count} title={'Ingredient Count for Each Medication'} color={['rgba(255, 99, 132, 0.2)',
@@ -262,16 +317,20 @@ class RxSummary extends Component {
                                         ]} />
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <PieChart data={code} title={'Medication Code System'} color={['blue', 'purple', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan']} />
+                                        <PieChart data={code} title={'Medication Code System'}/>
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <PieChart data={form} title={'Medication Form'} color={['blue', 'purple', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan', 'Navy', 'brown', 'pink']} />
+                                        <PieChart data={form} title={'Medication Form'}/>
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <Doughnut data={status} title={'Medication Status'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
+                                        <Doughnut data={status} title={'Medication Status'}/>
                                     </div>
-                                    <div className="eachgraphGrid, countSize">
+                                    <div className="eachgraphGrid">
+                                        <Doughnut data={dispensed} title={'Amount of Each Medication Dispensed'}/>
+                                    </div>
+                                    {/* <div className="eachgraphGrid, countSize">
                                         <p>Total {count} Records Found</p>
+                                    </div> */}
                                     </div>
                                 </React.Fragment>
                             </div>

@@ -17,7 +17,6 @@ code {
 .home{
   height: 100%;
   width: 100%;
-  display: flex;
   position: fixed;
   align-items: center;
   justify-content: center;
@@ -126,8 +125,14 @@ code {
 
 .title{
   font-family: 'Concert One';
-  margin:10px auto;
+  margin:15px auto;
   color: #0f066f;
+}
+
+.title2{
+  font-family: 'Concert One';
+  margin:10px auto;
+  color: #383f47;
 }
 
 .charDisplay{
@@ -135,8 +140,7 @@ code {
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
   margin: auto;
-  width: 90%;
-
+  width: 94%;
 }
 .eachgraphGrid{
   background-color:#fff;
@@ -144,6 +148,7 @@ code {
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 6px 6px -9px rgba(0,0,0,0.4);
+  height: 500px;
 }
 
 .chart-wrapper {
@@ -153,12 +158,12 @@ code {
 
 .main.chart-wrapper {
   width: 96%;
-  height: 400px;
+  height: 500px;
 }
 
 .sub.chart-wrapper {
-  width: 70%;
-  height: 400px;
+  width: 80%;
+  height: 500px;
 }
 
 
@@ -210,7 +215,7 @@ code {
 }
 
 .footer-margin{
-  margin-top: 200px;
+  margin-top: 70px;
 }
 
 
@@ -249,3 +254,8 @@ code {
   text-decoration:none;
 }
 
+.title-landing{
+  font-family: 'Concert One';
+  margin:20px auto;
+  color: #0f066f;
+}
