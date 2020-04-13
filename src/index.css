@@ -17,7 +17,6 @@ code {
 .home{
   height: 100%;
   width: 100%;
-  display: flex;
   position: fixed;
   align-items: center;
   justify-content: center;
@@ -126,8 +125,14 @@ code {
 
 .title{
   font-family: 'Concert One';
-  margin:10px auto;
+  margin:15px auto;
   color: #0f066f;
+}
+
+.title2{
+  font-family: 'Concert One';
+  margin:10px auto;
+  color: #383f47;
 }
 
 .charDisplay{
@@ -249,3 +254,8 @@ code {
   text-decoration:none;
 }
 
+.title-landing{
+  font-family: 'Concert One';
+  margin:20px auto;
+  color: #0f066f;
+}

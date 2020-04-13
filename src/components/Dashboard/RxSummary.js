@@ -284,10 +284,11 @@ class RxSummary extends Component {
                                     </div>
                             </div>
                         ) : (
-                            <div className="charDisplay">
-                                <h5 className="title">Total Medication Records Found: {count}</h5>
-                                <h5 className="title">Total Medications Dispensed: {dispensed_count}</h5>
+                            <div>
+                                <h5 className="title2">Total Medication Records Found: {count}</h5>
+                                <h5 className="title2">Total Medications Dispensed: {dispensed_count}</h5>
                                 <React.Fragment>
+                                    <div className="charDisplay">
                                     <div className="eachgraphGrid">
                                         <BarChart data={expiration}
                                             title={'Medication Expiration date'}
@@ -330,6 +331,7 @@ class RxSummary extends Component {
                                     {/* <div className="eachgraphGrid, countSize">
                                         <p>Total {count} Records Found</p>
                                     </div> */}
+                                    </div>
                                 </React.Fragment>
                             </div>
 
