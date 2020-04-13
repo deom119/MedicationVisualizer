@@ -1,0 +1,55 @@
+.landingpage{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.banner-area{
+  display: grid;
+  background-color: #f9f9ff;
+}
+
+.feature-area{
+  background-color: #fff;
+  height: 400px;
+}
+
+.feature-detail{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: auto 10%;
+  padding: 30px;
+}
+
+.item{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.pos{
+  text-align: right;
+}
+.image-size{
+  max-width: 30%;
+  height: auto;
+}
+
+.header{
+  text-align: left;
+}
+
+.detail{
+  font-size: 10px;
+  font-style: italic;
+  text-align: left;
+  border-bottom: 1.3px solid #eee;
+}
+
+.icon{
+  display: flex;
+  text-align: right;
+  justify-content: right;
+  align-items: top;
+  margin-top: 10px;
+}
