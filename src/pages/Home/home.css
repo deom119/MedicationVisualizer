@@ -12,7 +12,11 @@
 .banner-content{
   display: grid;
   margin: auto 10%;
-  padding: 30px;
+  padding: 10px;
+  padding-bottom: 0px;
+  width: 1200px;
+  height: 70%;
+
 }
 
 .tag{
@@ -61,7 +65,7 @@
 }
 
 .detail{
-  font-size: 10px;
+  font-size: 12px;
   font-style: italic;
   text-align: left;
   border-bottom: 1.3px solid #eee;
