@@ -216,7 +216,7 @@ class RxSummary extends Component {
 
         client.request("MedicationDispense", { pageLimit: NUMPAGES, flat: true })
         .then((response) => {
-            console.log(response)
+            //console.log(response)
             response.forEach(med_dispense => {
                 // Use medication references to update count
                 if (med_dispense.medicationReference !== undefined) {
@@ -263,9 +263,7 @@ class RxSummary extends Component {
 
         return (
             <div>
-                <h3 className="title">Rx Summary</h3>
-                <h6>Total Medication Records Found: {count}</h6>
-                <h6>Total Medications Dispensed: {dispensed_count}</h6>
+                <h2 className="title">Rx Summary</h2>
                     {
                     loading ?
                         (
@@ -287,6 +285,8 @@ class RxSummary extends Component {
                             </div>
                         ) : (
                             <div className="charDisplay">
+                                <h5 className="title">Total Medication Records Found: {count}</h5>
+                                <h5 className="title">Total Medications Dispensed: {dispensed_count}</h5>
                                 <React.Fragment>
                                     <div className="eachgraphGrid">
                                         <BarChart data={expiration}
@@ -301,10 +301,10 @@ class RxSummary extends Component {
                                         />
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <Doughnut data={batNo} title={'Medication Batch Number'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
+                                        <Doughnut data={batNo} title={'Medication Batch Number'}/>
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <Doughnut data={ingredient} title={'Medication Ingredients'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
+                                        <Doughnut data={ingredient} title={'Medication Ingredients'} />
                                     </div>
                                     <div className="eachgraphGrid">
                                         <BarChart data={ingredient_count} title={'Ingredient Count for Each Medication'} color={['rgba(255, 99, 132, 0.2)',
@@ -316,16 +316,16 @@ class RxSummary extends Component {
                                         ]} />
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <PieChart data={code} title={'Medication Code System'} color={['blue', 'purple', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan']} />
+                                        <PieChart data={code} title={'Medication Code System'}/>
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <PieChart data={form} title={'Medication Form'} color={['blue', 'purple', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan', 'Navy', 'brown', 'pink']} />
+                                        <PieChart data={form} title={'Medication Form'}/>
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <Doughnut data={status} title={'Medication Status'} color={['red', 'blue', 'yellow', 'green', 'teal', 'cyan']} />
+                                        <Doughnut data={status} title={'Medication Status'}/>
                                     </div>
                                     <div className="eachgraphGrid">
-                                        <Doughnut data={dispensed} title={'Amount of Each Medication Dispensed'} color={['blue', 'purple', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan']} />
+                                        <Doughnut data={dispensed} title={'Amount of Each Medication Dispensed'}/>
                                     </div>
                                     {/* <div className="eachgraphGrid, countSize">
                                         <p>Total {count} Records Found</p>

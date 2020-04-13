@@ -79,7 +79,7 @@ const Doughnut = (props) => {
         }
     })    
     return (
-        <canvas id="DoughnutChart" ref={DoughnutchartRef} />
+        <canvas id="DoughnutChart" height="185px" ref={DoughnutchartRef} />
     );
 };
 
