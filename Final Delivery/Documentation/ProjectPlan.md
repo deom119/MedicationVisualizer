@@ -56,11 +56,13 @@ Allow users to search medications with dropdown options and display results in a
 *Accessing Search Page*
 
 *Entrance Criteria: Clicking the Search word on Nav Bar*
+
 *Exit Criteria: View of search bar on Search page*
 
 *Search a Medication*
 
 *Entrance Criteria: Selecting an option in dropdown menu and type in a term in Search Bar*
+
 *Exit Criteria: a tabular representation of a specific dataset*
 
 
