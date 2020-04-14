@@ -16,14 +16,14 @@ We have designed and implemented Medication Visualizer, which aims to provide he
 
 The project is to design and implement a user-friendly web application. The application is comprised of three parts which can be seen in the navigation bar at the top: Landing page, Dashboard, and Search.
 
-*Landing*
+**Landing**
 
 Displays the objectives and the usage of Medication Visualizer application.
 
 *Entrance Criteria: The web application address*
 *Exit Criteria: understand the objectives and the functionalities of Medication Visualizer app*
 
-*Dashboard*
+**Dashboard**
 
 Displays important aspect of medications visualized as charts
 
@@ -41,7 +41,7 @@ Displays important aspect of medications visualized as charts
 *Entrance Criteria: Clicking the Dashboard word on Nav Bar*
 *Exit Criteria: a visual representation of the overall medication data*
 
-*Search*
+**Search**
 
 Allow users to search medications with dropdown options and display results in a table
 
@@ -53,14 +53,16 @@ Allow users to search medications with dropdown options and display results in a
 * Users can search the medication database by medication form
 * Users can search the medication database by medication expiration
 
-** Accessing Search Page **
+*Accessing Search Page*
 
 *Entrance Criteria: Clicking the Search word on Nav Bar*
+
 *Exit Criteria: View of search bar on Search page*
 
-**Search a Medication**
+*Search a Medication*
 
 *Entrance Criteria: Selecting an option in dropdown menu and type in a term in Search Bar*
+
 *Exit Criteria: a tabular representation of a specific dataset*
 
 
