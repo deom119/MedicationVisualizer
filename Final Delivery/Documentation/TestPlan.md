@@ -2,11 +2,11 @@
 
 ## Scope
 
-### Testing of the app can be broken down into these 6 categories
+### Testing of the app can be broken down into these 6 categories. Within each category are listed tasks as well as software for completing these tasks.
 
 ## 1. Functionality Testing
 - Tools: [Micro Focus Unified Functional Testing(UFT) Tool](http://www.automationrepository.com/2012/12/hp-unified-functional-testing-uft-11-5-new-features/), [Selenium](https://www.leapwork.com/discover/selenium-testing) 
-- input checking
+- input checking (Data validation, data-type checks, range check)
 - verify no dead pages or invalid redirects
 - verify data integrity( accuracy and consistency of data over its entire life-cycle)
 - test cookies are working as expected
@@ -40,6 +40,15 @@
 
 ### Testing suites(All in one): [Ranorex](https://www.ranorex.com/)
 
-## Outside of scope
+## Outside of Scope
 - Database Testing
 - Testing HTML and CSS for SEO
+
+## Test Approach
+The testing will be done **reactively**, after the production of the app. The different testing areas require different approaches.
+- Heuristic Approach: usability testing
+- Dynamic Approach: functional testing, interface testing
+- Methodical Approach: compatibility testing, security testing
+- Statistical(Data) Approach: performance testing
+
+
