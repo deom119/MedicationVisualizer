@@ -1,6 +1,8 @@
 # Test Plan
 
-### Testing can be broken down into these 6 categories
+## Scope
+
+### Testing of the app can be broken down into these 6 categories
 
 ## 1. Functionality Testing
 - Tools: [Micro Focus Unified Functional Testing(UFT) Tool](http://www.automationrepository.com/2012/12/hp-unified-functional-testing-uft-11-5-new-features/), [Selenium](https://www.leapwork.com/discover/selenium-testing) 
@@ -37,3 +39,7 @@
   
 
 ### Testing suites(All in one): [Ranorex](https://www.ranorex.com/)
+
+## Outside of scope
+- Database Testing
+- Testing HTML and CSS for SEO
