@@ -1,5 +1,13 @@
 # Test Plan
 
+**Author:** Team Apollo (Team 38)
+
+**Project Mentor and TA Mentor:** Kuhu Gupta
+
+**Project Topic:** Medication Visualizer
+
+**Github Link:** https://github.gatech.edu/gt-cs6440-hit-spring2020/MedicationVisualizer-2
+
 ## Scope
 
 ### Testing of the app can be broken down into these 6 categories. Within each category are listed tasks as well as software for completing these tasks.
