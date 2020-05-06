@@ -1,6 +1,6 @@
 # Medication Visualizer Project
 
-**Author:** Team Apollo (Team 38)
+**Author:** Team Apollo
 
 **Team Members:** Uday Bag, Patrick Xie Chen, Marco Tupaz Colasito, Dasom Eom, Rory Mcgurty
 
